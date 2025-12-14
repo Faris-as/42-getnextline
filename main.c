@@ -15,7 +15,7 @@ int main()
     int count = 0;
 
     line = get_next_line(fd);
-    printf("Line %d: %s", ++count, line);
+    printf("Line %d: %s \n", ++count, line);
     line = get_next_line(fd);
     printf("Line %d: %s", ++count, line);
     free(line);
