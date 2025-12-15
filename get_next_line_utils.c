@@ -115,3 +115,44 @@ char    *ft_strjoin(char const *s1, char const *s2)
     joined[i + j] = '\0';
     return (joined);
 }
+
+void *ft_memcpy(void *s, const void *c, size_t len)
+{
+    unsigned char *ptr;
+    const unsigned char *ptr2;
+    size_t i;
+
+    ptr = s;
+    ptr2 = c;
+    i = 0;
+    while (i < len)
+    {
+        *ptr++ = *ptr2++;
+        i++;
+    }
+    return(s);
+}
+
+char *ft_substr(char const *s, unsigned int start, size_t len)
+{
+    char *sub;
+    size_t length;
+
+    if (s == NULL)
+        return NULL;
+    length = ft_strlen(s);
+    sub = (char *)malloc(sizeof(char) * (len + 1));
+    if (!sub)
+        return (NULL);
+    if (start >= length)
+    {
+        *sub = '\0';
+        return sub;
+    }
+    if (len > length - start)
+        len = length - start;
+
+    ft_memcpy(sub, &s[start], len);
+    sub[len] = '\0';
+    return sub;
+}

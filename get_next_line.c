@@ -8,7 +8,7 @@ static char *read_from_file(int fd, char *remainder, char *buffer)
     char *temp;
     
     rlen = 1;
-    while(!ft_strchr(remainder,'\n') && rlen > 0)
+    while(rlen > 0)
     {
         rlen = read(fd, buffer, BUFFER_SIZE);
         if (rlen == -1)
@@ -22,6 +22,8 @@ static char *read_from_file(int fd, char *remainder, char *buffer)
         temp = remainder;
         remainder = ft_strjoin(temp, buffer);
         free(temp);
+		if(ft_strchr(buffer, '\n'))
+			break;
     }
     if (*remainder == 0 || !remainder)
     {
@@ -34,19 +36,16 @@ static char *read_from_file(int fd, char *remainder, char *buffer)
 
 static char *extract_line(char *remainder)
 {
-    char *temp;
     size_t i;
 
     i = 0;
+	if (!remainder[i])
+		return (NULL);
     while(remainder[i] && remainder[i] != '\n')
         i++;
     if(remainder[i] == '\n')
         i++;
-    temp = ft_calloc(i + 1, sizeof(char));
-    if (!temp)
-        return(NULL);
-    ft_strlcpy(temp, remainder, i + 1);
-    return (temp);
+    return ft_substr(remainder, 0, i);
 }
 
 static char *remove_unwanted(char *remainder)
@@ -56,16 +55,19 @@ static char *remove_unwanted(char *remainder)
 
     i = 0;
     while(remainder[i] && remainder[i] != '\n')
-        i++;
-    if (!remainder[i])
+		i++;
+	if (!remainder[i])
+	{
+		free(remainder);
+		return (NULL);
+	}
+	i++;
+	if (remainder[i] == '\0')
     {
         free(remainder);
-        return (NULL);
+        return NULL;
     }
-    if(remainder[i] == '\n')
-        i++;
-    
-    new_remainder = ft_strdup(&remainder[i]);
+	new_remainder = ft_strdup(remainder + i);
     free(remainder);
     return(new_remainder);
 }
@@ -75,19 +77,26 @@ char *get_next_line(int fd)
     static char *remainder;
     char *buffer;
     char *temp;
-    if(fd < 0 || BUFFER_SIZE <= 0)
-        return (NULL);
-
+	
     if (!remainder)
-        remainder = ft_strdup("");
+	remainder = ft_strdup("");
     
     buffer = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
+
+	if(fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+    {
+		free(remainder);
+		free(buffer);
+		buffer = NULL;
+		remainder = NULL;
+		return (NULL);
+	}   
 	
 	remainder = read_from_file(fd, remainder, buffer);
 	free(buffer);
-	
+
 	if (!remainder || *remainder == '\0')
 	{
         free(remainder);
@@ -95,7 +104,7 @@ char *get_next_line(int fd)
         return NULL;
     }
     temp = extract_line(remainder);
-    remainder = remove_unwanted(remainder);
+	remainder = remove_unwanted(remainder);
 
     return(temp);
 }
