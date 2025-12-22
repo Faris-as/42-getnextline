@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fabdul-s <fabdul-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/16 10:50:10 by fabdul-s          #+#    #+#             */
-/*   Updated: 2025/12/22 02:54:53 by fabdul-s         ###   ########.fr       */
+/*   Created: 2025/12/16 10:50:00 by fabdul-s          #+#    #+#             */
+/*   Updated: 2025/12/22 03:10:49 by fabdul-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchr(const char *s, char c)
 {

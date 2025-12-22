@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fabdul-s <fabdul-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/16 10:50:22 by fabdul-s          #+#    #+#             */
-/*   Updated: 2025/12/22 01:21:01 by fabdul-s         ###   ########.fr       */
+/*   Created: 2025/12/16 10:50:43 by fabdul-s          #+#    #+#             */
+/*   Updated: 2025/12/22 01:21:06 by fabdul-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <fcntl.h>
+# include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
 

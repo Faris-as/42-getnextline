@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fabdul-s <fabdul-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/16 10:50:18 by fabdul-s          #+#    #+#             */
-/*   Updated: 2025/12/22 02:25:39 by fabdul-s         ###   ########.fr       */
+/*   Created: 2025/12/16 10:50:52 by fabdul-s          #+#    #+#             */
+/*   Updated: 2025/12/22 03:11:20 by fabdul-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static char	*read_from_file(int fd, char *remainder, char *buffer)
 {
@@ -43,7 +43,7 @@ static char	*extract_line(char *remainder)
 	size_t	i;
 
 	i = 0;
-	if (!remainder)
+	if (!remainder[i])
 		return (NULL);
 	while (remainder[i] && remainder[i] != '\n')
 		i++;
@@ -73,26 +73,26 @@ static char	*remove_unwanted(char *remainder)
 
 char	*get_next_line(int fd)
 {
-	static char	*remainder;
+	static char	*remainder[OPEN_MAX];
 	char		*buffer;
-	char		*line;
+	char		*temp;
 
-	if (!remainder)
-		remainder = ft_strdup("");
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
+	if (!remainder[fd])
+		remainder[fd] = ft_strdup("");
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	remainder = read_from_file(fd, remainder, buffer);
+	remainder[fd] = read_from_file(fd, remainder[fd], buffer);
 	free(buffer);
-	if (!remainder || *remainder == '\0')
+	if (!remainder[fd] || *remainder[fd] == '\0')
 	{
-		free(remainder);
-		remainder = NULL;
+		free(remainder[fd]);
+		remainder[fd] = NULL;
 		return (NULL);
 	}
-	line = extract_line(remainder);
-	remainder = remove_unwanted(remainder);
-	return (line);
+	temp = extract_line(remainder[fd]);
+	remainder[fd] = remove_unwanted(remainder[fd]);
+	return (temp);
 }
