@@ -6,7 +6,7 @@
 /*   By: fabdul-s <fabdul-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 10:50:10 by fabdul-s          #+#    #+#             */
-/*   Updated: 2025/12/22 02:54:53 by fabdul-s         ###   ########.fr       */
+/*   Updated: 2026/02/02 16:40:11 by fabdul-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 char	*ft_strchr(const char *s, char c)
 {
-	while (*s)
+	if (!s)
+		return (0);
+	while (*s != c)
 	{
-		if (*(unsigned char *)s == (unsigned char)c)
-			return ((char *)s);
+		if (!*s)
+			return (0);
 		s++;
 	}
-	if (*(unsigned char *)s == (unsigned char)c)
-		return ((char *)s);
-	return (NULL);
+	return ((char *)s);
 }
 
 size_t	ft_strlen(const char *s)
@@ -88,13 +88,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*str;
+	size_t	s_len;
 
 	if (!s)
 		return (NULL);
-	if (start >= ft_strlen(s))
+	s_len = ft_strlen(s);
+	if (start >= s_len)
 		len = 0;
-	if (len > ft_strlen(s) - start)
-		len = ft_strlen(s) - start;
+	else if (len > s_len - start)
+		len = s_len - start;
 	str = malloc(len + 1);
 	if (!str)
 		return (NULL);

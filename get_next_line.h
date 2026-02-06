@@ -6,7 +6,7 @@
 /*   By: fabdul-s <fabdul-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 10:50:22 by fabdul-s          #+#    #+#             */
-/*   Updated: 2025/12/22 01:21:01 by fabdul-s         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:57:53 by fabdul-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 3

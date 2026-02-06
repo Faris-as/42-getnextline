@@ -1,4 +1,4 @@
-*This project has been created as part of the 42 curriculum by <fabdul-s>.*
+*This project has been created as part of the 42 curriculum by <*fabdul-s*>.*
 
 # get_next_line
 
@@ -43,7 +43,7 @@ The project must compile with or without the BUFFER_SIZE macro.
 Example compilation command:
 
 ```
-cc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c
+gcc -Wall -Wextra -Werror -D BUFFER_SIZE=42 get_next_line.c get_next_line_utils.c
 ```
 
 If BUFFER_SIZE is not defined, a default value chosen by the developer must be used.

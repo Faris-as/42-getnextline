@@ -6,7 +6,7 @@
 /*   By: fabdul-s <fabdul-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 10:50:18 by fabdul-s          #+#    #+#             */
-/*   Updated: 2025/12/22 02:25:39 by fabdul-s         ###   ########.fr       */
+/*   Updated: 2026/02/02 16:44:47 by fabdul-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*read_from_file(int fd, char *remainder, char *buffer)
 	char	*temp;
 
 	rlen = 1;
-	while (rlen > 0)
+	while (rlen > 0 && !ft_strchr(remainder, '\n'))
 	{
 		rlen = read(fd, buffer, BUFFER_SIZE);
 		if (rlen == -1)
@@ -32,8 +32,6 @@ static char	*read_from_file(int fd, char *remainder, char *buffer)
 		temp = remainder;
 		remainder = ft_strjoin(temp, buffer);
 		free(temp);
-		if (ft_strchr(buffer, '\n'))
-			break ;
 	}
 	return (remainder);
 }
@@ -77,10 +75,10 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*line;
 
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
+		return (NULL);
 	if (!remainder)
 		remainder = ft_strdup("");
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);

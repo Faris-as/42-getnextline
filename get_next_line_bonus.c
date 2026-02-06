@@ -6,7 +6,7 @@
 /*   By: fabdul-s <fabdul-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/16 10:50:52 by fabdul-s          #+#    #+#             */
-/*   Updated: 2025/12/22 03:11:20 by fabdul-s         ###   ########.fr       */
+/*   Updated: 2026/02/02 16:36:45 by fabdul-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*read_from_file(int fd, char *remainder, char *buffer)
 		temp = remainder;
 		remainder = ft_strjoin(temp, buffer);
 		free(temp);
-		if (ft_strchr(buffer, '\n'))
+		if (ft_strchr(remainder, '\n'))
 			break ;
 	}
 	return (remainder);
@@ -77,7 +77,7 @@ char	*get_next_line(int fd)
 	char		*buffer;
 	char		*temp;
 
-	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX)
 		return (NULL);
 	if (!remainder[fd])
 		remainder[fd] = ft_strdup("");
